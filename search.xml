@@ -2,7 +2,13 @@
 <search>
   <entry>
     <title><![CDATA[Hello World]]></title>
-    <url>%2F2018%2F12%2F13%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    <url>%2F2018%2F12%2F15%2FHello-World%2F</url>
+    <content type="text"><![CDATA[本人是广东某双非本科的计算机系蒟蒻一枚，大一到大三接触过ACM，之后开始接触Java备战春招，暑假在杭州实习。虽然秋招以Java后台开发为目标，但是去了广州某无人驾驶公司，主要使用Python（学了一年的Java最终丢了233）。之前一直是用博客园和简书写一些东西，前两周入职了，开始接触新的东西，建立这个博客也算是新的启程吧。]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+      </tags>
   </entry>
 </search>
