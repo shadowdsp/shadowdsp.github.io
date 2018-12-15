@@ -2,17 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>shadowdsp</title>
   
-  
+  <subtitle>我的青春Coding物语果然有问题</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
   <updated>2018-12-13T14:14:33.208Z</updated>
   <id>http://yoursite.com/</id>
-  
-  <author>
-    <name>shadowdsp</name>
-    
-  </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
   
