@@ -136,13 +136,22 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="shadowdsp">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="综述今天在使用 D3 的时候遇到一个 css 的问题，这里留作记录防止以后踩坑。 问题在使用 d3 添加鼠标响应事件，想要修改 css，结果不会修改。 123456789101112131415let rec = svg.append(&quot;rect&quot;)  .attr(&quot;class&quot;, &quot;view&quot;)  .attr(&quot;x&quot;, 1)  .attr(&quot;y&quot;, 1)  .attr(&quot;width&quot;, widt">
+<meta name="keywords" content="前端开发,问题记录,CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端css样式覆盖问题">
+<meta property="og:url" content="http://yoursite.com/2019/01/10/前端css样式覆盖/index.html">
 <meta property="og:site_name" content="shadowdsp">
+<meta property="og:description" content="综述今天在使用 D3 的时候遇到一个 css 的问题，这里留作记录防止以后踩坑。 问题在使用 d3 添加鼠标响应事件，想要修改 css，结果不会修改。 123456789101112131415let rec = svg.append(&quot;rect&quot;)  .attr(&quot;class&quot;, &quot;view&quot;)  .attr(&quot;x&quot;, 1)  .attr(&quot;y&quot;, 1)  .attr(&quot;width&quot;, widt">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1fz1wr31s8yj30v20t6jws.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fz1wxcf7m0j306y06ct8k.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fz1wxja7ajj306806aq2s.jpg">
+<meta property="og:updated_time" content="2019-01-10T15:48:23.611Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shadowdsp">
+<meta name="twitter:title" content="前端css样式覆盖问题">
+<meta name="twitter:description" content="综述今天在使用 D3 的时候遇到一个 css 的问题，这里留作记录防止以后踩坑。 问题在使用 d3 添加鼠标响应事件，想要修改 css，结果不会修改。 123456789101112131415let rec = svg.append(&quot;rect&quot;)  .attr(&quot;class&quot;, &quot;view&quot;)  .attr(&quot;x&quot;, 1)  .attr(&quot;y&quot;, 1)  .attr(&quot;width&quot;, widt">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1fz1wr31s8yj30v20t6jws.jpg">
 
 
 
@@ -151,7 +160,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/10/前端css样式覆盖/">
 
 
 
@@ -161,7 +170,7 @@
   };
 </script>
 
-  <title>shadowdsp</title>
+  <title>前端css样式覆盖问题 | shadowdsp</title>
   
 
 
@@ -209,8 +218,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -251,7 +259,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -402,9 +410,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -436,10 +444,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/01/10/前端css样式覆盖/" class="post-title-link" itemprop="http://yoursite.com/index.html">前端css样式覆盖问题</a>
+          <h1 class="post-title" itemprop="name headline">前端css样式覆盖问题
+
               
             
           </h1>
@@ -520,22 +526,33 @@
       
 
       
-        
-          
-          综述今天在使用 D3 的时候遇到一个 css 的问题，这里留作记录防止以后踩坑。
-问题在使用 d3 添加鼠标响应事件，想要修改 css，结果不会修改。
-123456789101112131415let rec = svg.append("rect")  .attr("class", "view") 
-          ...
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/01/10/前端css样式覆盖/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
+        <h1 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h1><p>今天在使用 D3 的时候遇到一个 css 的问题，这里留作记录防止以后踩坑。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在使用 d3 添加鼠标响应事件，想要修改 css，结果不会修改。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> rec = svg.append(<span class="string">"rect"</span>)</span><br><span class="line">  .attr(<span class="string">"class"</span>, <span class="string">"view"</span>)</span><br><span class="line">  .attr(<span class="string">"x"</span>, <span class="number">1</span>)</span><br><span class="line">  .attr(<span class="string">"y"</span>, <span class="number">1</span>)</span><br><span class="line">  .attr(<span class="string">"width"</span>, width - <span class="number">2</span>)</span><br><span class="line">  .attr(<span class="string">"height"</span>, height - <span class="number">2</span>)</span><br><span class="line">  .attr(<span class="string">"fill"</span>, <span class="string">"gray"</span>)</span><br><span class="line">  .style(<span class="string">"stroke"</span>, <span class="string">"red"</span>)</span><br><span class="line">  .style(<span class="string">"stroke-width"</span>, <span class="string">"2px"</span>)</span><br><span class="line">  .on(<span class="string">"mouseover"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    d3.select(<span class="keyword">this</span>).classed(<span class="string">"hover"</span>, <span class="literal">true</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  .on(<span class="string">"mouseout"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    d3.select(<span class="keyword">this</span>).classed(<span class="string">"hover"</span>, <span class="literal">false</span>)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.view</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">stroke</span>: blue;</span><br><span class="line">  <span class="attribute">stroke-width</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.view</span> &#123;</span><br><span class="line">  <span class="attribute">stroke</span>: gold;</span><br><span class="line">  <span class="attribute">stroke-width</span>: <span class="number">2</span>;</span><br><span class="line">  <span class="attribute">pointer-events</span>: all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里添加了 <code>mouseover</code> 和 <code>mouseout</code> 事件，借此改变 <code>rect</code> 的样式，结果没有成功。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>折腾了好久，问了一下大佬立马解决。</p>
+<p>打开 chrome 的调试工具。</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fz1wr31s8yj30v20t6jws.jpg" alt="chrome"></p>
+<p>可以看到这里 <code>.view:hover</code> 和 <code>.view</code> 都是被 <code>element.style</code> 覆盖了。</p>
+<p>这个 <code>element.style</code> 一般是内联样式，因此查看自己的代码，发现在定义 <code>rect</code> 的时候已经定义了 <code>style</code> ： <code>.style(&quot;stroke&quot;, &quot;red&quot;).style(&quot;stroke-width&quot;, &quot;2px&quot;)</code>。</p>
+<p>将这两句去掉，可以得到最终结果：</p>
+<blockquote>
+<p>hover</p>
+</blockquote>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fz1wxcf7m0j306y06ct8k.jpg" alt="hover"></p>
+<blockquote>
+<p>unhover</p>
+</blockquote>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fz1wxja7ajj306806aq2s.jpg" alt="unhover"></p>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><blockquote>
+<p>D3Component.js</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> d3 <span class="keyword">from</span> <span class="string">'d3'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./D3Component.css'</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D3Component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    <span class="keyword">let</span> svg = d3.select(<span class="string">"svg"</span>),</span><br><span class="line">      width = +svg.attr(<span class="string">"width"</span>),</span><br><span class="line">      height = +svg.attr(<span class="string">"height"</span>);</span><br><span class="line">    <span class="keyword">let</span> rec = svg.append(<span class="string">"rect"</span>)</span><br><span class="line">      .attr(<span class="string">"class"</span>, <span class="string">"view"</span>)</span><br><span class="line">      .attr(<span class="string">"x"</span>, <span class="number">1</span>)</span><br><span class="line">      .attr(<span class="string">"y"</span>, <span class="number">1</span>)</span><br><span class="line">      .attr(<span class="string">"width"</span>, width - <span class="number">2</span>)</span><br><span class="line">      .attr(<span class="string">"height"</span>, height - <span class="number">2</span>)</span><br><span class="line">      .attr(<span class="string">"fill"</span>, <span class="string">"gray"</span>)</span><br><span class="line">      <span class="comment">// .style("stroke", "red")</span></span><br><span class="line">      <span class="comment">// .style("stroke-width", "2px")</span></span><br><span class="line">      .on(<span class="string">"mouseover"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">        d3.select(<span class="keyword">this</span>).classed(<span class="string">"hover"</span>, <span class="literal">true</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">      .on(<span class="string">"mouseout"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">        d3.select(<span class="keyword">this</span>).classed(<span class="string">"hover"</span>, <span class="literal">false</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;svg id=<span class="string">"svg"</span> width=<span class="string">"100"</span> height=<span class="string">"100"</span>&gt;&lt;/svg&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default D3Component;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>D3Component.css</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.view</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">stroke</span>: blue;</span><br><span class="line">  <span class="attribute">stroke-width</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.view</span> &#123;</span><br><span class="line">  <span class="attribute">stroke</span>: gold;</span><br><span class="line">  <span class="attribute">stroke-width</span>: <span class="number">2</span>;</span><br><span class="line">  <span class="attribute">pointer-events</span>: all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -556,182 +573,40 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/Hello-World/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shadowdsp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shadowdsp">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/12/15/Hello-World/" class="post-title-link" itemprop="http://yoursite.com/index.html">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-12-15 17:15:24 / Modified: 17:33:48" itemprop="dateCreated datePublished" datetime="2018-12-15T17:15:24+08:00">2018-12-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/生活/" itemprop="url" rel="index"><span itemprop="name">生活</span></a></span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/前端开发/" rel="tag"># 前端开发</a>
           
-
+            <a href="/tags/问题记录/" rel="tag"># 问题记录</a>
           
-            
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
           
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          
-          本人是广东某双非本科的计算机系蒟蒻一枚，大一到大三接触过ACM，之后开始接触Java备战春招，暑假在杭州实习。虽然秋招以Java后台开发为目标，但是去了广州某无人驾驶公司，主要使用Python（学了一年的Java最终丢了233）。之前一直是用博客园和简书写一些东西，前两周入职了，开始接触新的东西，
-          ...
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/12/15/Hello-World/#more" rel="contents">
-                Read more &raquo;
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/Hello-World/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
+            
+          </div>
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -741,14 +616,20 @@
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTY3My8xODIxOQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -769,8 +650,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -924,6 +814,22 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-text">综述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方法"><span class="nav-text">解决方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码"><span class="nav-text">完整代码</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -1071,6 +977,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
 
   
 
@@ -1083,6 +993,20 @@
 
 
 
+  
+    <script>
+      window.livereOptions = {
+        refer: '2019/01/10/前端css样式覆盖/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 

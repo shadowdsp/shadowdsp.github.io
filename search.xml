@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2018%2F12%2F15%2FHello-World%2F</url>
-    <content type="text"><![CDATA[本人是广东某双非本科的计算机系蒟蒻一枚，大一到大三接触过ACM，之后开始接触Java备战春招，暑假在杭州实习。虽然秋招以Java后台开发为目标，但是去了广州某无人驾驶公司，主要使用Python（学了一年的Java最终丢了233）。之前一直是用博客园和简书写一些东西，前两周入职了，开始接触新的东西，建立这个博客也算是新的启程吧。]]></content>
+<search> 
+  
+    
+    <entry>
+      <title>前端css样式覆盖问题</title>
+      <link href="/2019/01/10/%E5%89%8D%E7%AB%AFcss%E6%A0%B7%E5%BC%8F%E8%A6%86%E7%9B%96/"/>
+      <url>/2019/01/10/%E5%89%8D%E7%AB%AFcss%E6%A0%B7%E5%BC%8F%E8%A6%86%E7%9B%96/</url>
+      
+        <content type="html"><![CDATA[<h1 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h1><p>今天在使用 D3 的时候遇到一个 css 的问题，这里留作记录防止以后踩坑。</p><h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在使用 d3 添加鼠标响应事件，想要修改 css，结果不会修改。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> rec = svg.append(<span class="string">"rect"</span>)</span><br><span class="line">  .attr(<span class="string">"class"</span>, <span class="string">"view"</span>)</span><br><span class="line">  .attr(<span class="string">"x"</span>, <span class="number">1</span>)</span><br><span class="line">  .attr(<span class="string">"y"</span>, <span class="number">1</span>)</span><br><span class="line">  .attr(<span class="string">"width"</span>, width - <span class="number">2</span>)</span><br><span class="line">  .attr(<span class="string">"height"</span>, height - <span class="number">2</span>)</span><br><span class="line">  .attr(<span class="string">"fill"</span>, <span class="string">"gray"</span>)</span><br><span class="line">  .style(<span class="string">"stroke"</span>, <span class="string">"red"</span>)</span><br><span class="line">  .style(<span class="string">"stroke-width"</span>, <span class="string">"2px"</span>)</span><br><span class="line">  .on(<span class="string">"mouseover"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    d3.select(<span class="keyword">this</span>).classed(<span class="string">"hover"</span>, <span class="literal">true</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  .on(<span class="string">"mouseout"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    d3.select(<span class="keyword">this</span>).classed(<span class="string">"hover"</span>, <span class="literal">false</span>)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.view</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">stroke</span>: blue;</span><br><span class="line">  <span class="attribute">stroke-width</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.view</span> &#123;</span><br><span class="line">  <span class="attribute">stroke</span>: gold;</span><br><span class="line">  <span class="attribute">stroke-width</span>: <span class="number">2</span>;</span><br><span class="line">  <span class="attribute">pointer-events</span>: all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这里添加了 <code>mouseover</code> 和 <code>mouseout</code> 事件，借此改变 <code>rect</code> 的样式，结果没有成功。</p><h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>折腾了好久，问了一下大佬立马解决。</p><p>打开 chrome 的调试工具。</p><p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fz1wr31s8yj30v20t6jws.jpg" alt="chrome"></p><p>可以看到这里 <code>.view:hover</code> 和 <code>.view</code> 都是被 <code>element.style</code> 覆盖了。</p><p>这个 <code>element.style</code> 一般是内联样式，因此查看自己的代码，发现在定义 <code>rect</code> 的时候已经定义了 <code>style</code> ： <code>.style(&quot;stroke&quot;, &quot;red&quot;).style(&quot;stroke-width&quot;, &quot;2px&quot;)</code>。</p><p>将这两句去掉，可以得到最终结果：</p><blockquote><p>hover</p></blockquote><p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fz1wxcf7m0j306y06ct8k.jpg" alt="hover"></p><blockquote><p>unhover</p></blockquote><p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fz1wxja7ajj306806aq2s.jpg" alt="unhover"></p><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><blockquote><p>D3Component.js</p></blockquote><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> d3 <span class="keyword">from</span> <span class="string">'d3'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./D3Component.css'</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D3Component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    <span class="keyword">let</span> svg = d3.select(<span class="string">"svg"</span>),</span><br><span class="line">      width = +svg.attr(<span class="string">"width"</span>),</span><br><span class="line">      height = +svg.attr(<span class="string">"height"</span>);</span><br><span class="line">    <span class="keyword">let</span> rec = svg.append(<span class="string">"rect"</span>)</span><br><span class="line">      .attr(<span class="string">"class"</span>, <span class="string">"view"</span>)</span><br><span class="line">      .attr(<span class="string">"x"</span>, <span class="number">1</span>)</span><br><span class="line">      .attr(<span class="string">"y"</span>, <span class="number">1</span>)</span><br><span class="line">      .attr(<span class="string">"width"</span>, width - <span class="number">2</span>)</span><br><span class="line">      .attr(<span class="string">"height"</span>, height - <span class="number">2</span>)</span><br><span class="line">      .attr(<span class="string">"fill"</span>, <span class="string">"gray"</span>)</span><br><span class="line">      <span class="comment">// .style("stroke", "red")</span></span><br><span class="line">      <span class="comment">// .style("stroke-width", "2px")</span></span><br><span class="line">      .on(<span class="string">"mouseover"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">        d3.select(<span class="keyword">this</span>).classed(<span class="string">"hover"</span>, <span class="literal">true</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">      .on(<span class="string">"mouseout"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">        d3.select(<span class="keyword">this</span>).classed(<span class="string">"hover"</span>, <span class="literal">false</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;svg id=<span class="string">"svg"</span> width=<span class="string">"100"</span> height=<span class="string">"100"</span>&gt;&lt;/svg&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default D3Component;</span></span><br></pre></td></tr></table></figure><blockquote><p>D3Component.css</p></blockquote><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.view</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">stroke</span>: blue;</span><br><span class="line">  <span class="attribute">stroke-width</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.view</span> &#123;</span><br><span class="line">  <span class="attribute">stroke</span>: gold;</span><br><span class="line">  <span class="attribute">stroke-width</span>: <span class="number">2</span>;</span><br><span class="line">  <span class="attribute">pointer-events</span>: all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
       <categories>
-        <category>生活</category>
+          
+          <category> 前端开发 </category>
+          
       </categories>
-      <tags>
-        <tag>生活</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> 前端开发 </tag>
+            
+            <tag> 问题记录 </tag>
+            
+            <tag> CSS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2018/12/15/Hello-World/"/>
+      <url>/2018/12/15/Hello-World/</url>
+      
+        <content type="html"><![CDATA[<p>本人是广东某双非本科的计算机系蒟蒻一枚，大一到大三接触过ACM，之后开始接触Java备战春招，暑假在杭州实习。虽然秋招以Java后台开发为目标，但是去了广州某无人驾驶公司，主要使用Python（学了一年的Java最终丢了233）。之前一直是用博客园和简书写一些东西，前两周入职了，开始接触新的东西，建立这个博客也算是新的启程吧。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+  
+  
 </search>
