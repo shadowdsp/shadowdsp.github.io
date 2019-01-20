@@ -136,22 +136,22 @@
 
 
 
-  <meta name="description" content="[TOC] 概述最近在使用js中经常遇到需要去异步获取文件并对文件内容进行处理的需求。 详细的需求是：同时去异步获取多个文件，然后将多个文件的结果聚合起来，返回。 但是关于这样的做法有不少的实现方式，在这里主要做一个总结。 做法我先在项目中放置了两个需要获取的json文件。   a.json  1234&amp;#123;  &quot;a&quot;: &quot;1&quot;,  &quot;b&quot;: &quot;2&quot;&amp;#125;  b.json  1234&amp;">
+  <meta name="description" content="概述最近在使用js中经常遇到需要去异步获取文件并对文件内容进行处理的需求。 详细的需求是：同时去异步获取多个文件，然后将多个文件的结果聚合起来，返回。 但是关于这样的做法有不少的实现方式，在这里主要做一个总结。 做法我先在项目中放置了两个需要获取的json文件。   a.json  1234&amp;#123;  &quot;a&quot;: &quot;1&quot;,  &quot;b&quot;: &quot;2&quot;&amp;#125;  b.json  1234&amp;#123;">
 <meta name="keywords" content="前端开发,问题记录,JavaScipt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js中异步获取文件集并返回结果集">
 <meta property="og:url" content="http://yoursite.com/2019/01/20/js中异步获取文件集并返回结果集/index.html">
 <meta property="og:site_name" content="shadowdsp">
-<meta property="og:description" content="[TOC] 概述最近在使用js中经常遇到需要去异步获取文件并对文件内容进行处理的需求。 详细的需求是：同时去异步获取多个文件，然后将多个文件的结果聚合起来，返回。 但是关于这样的做法有不少的实现方式，在这里主要做一个总结。 做法我先在项目中放置了两个需要获取的json文件。   a.json  1234&amp;#123;  &quot;a&quot;: &quot;1&quot;,  &quot;b&quot;: &quot;2&quot;&amp;#125;  b.json  1234&amp;">
+<meta property="og:description" content="概述最近在使用js中经常遇到需要去异步获取文件并对文件内容进行处理的需求。 详细的需求是：同时去异步获取多个文件，然后将多个文件的结果聚合起来，返回。 但是关于这样的做法有不少的实现方式，在这里主要做一个总结。 做法我先在项目中放置了两个需要获取的json文件。   a.json  1234&amp;#123;  &quot;a&quot;: &quot;1&quot;,  &quot;b&quot;: &quot;2&quot;&amp;#125;  b.json  1234&amp;#123;">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fzcxkhbgfzj30bk0diglo.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fzczojv8eij30di0e4q35.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fzdakdiruyj304t02j743.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1fzdd499tbej30f20ct3yx.jpg">
-<meta property="og:updated_time" content="2019-01-20T13:37:06.889Z">
+<meta property="og:updated_time" content="2019-01-20T13:37:58.565Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js中异步获取文件集并返回结果集">
-<meta name="twitter:description" content="[TOC] 概述最近在使用js中经常遇到需要去异步获取文件并对文件内容进行处理的需求。 详细的需求是：同时去异步获取多个文件，然后将多个文件的结果聚合起来，返回。 但是关于这样的做法有不少的实现方式，在这里主要做一个总结。 做法我先在项目中放置了两个需要获取的json文件。   a.json  1234&amp;#123;  &quot;a&quot;: &quot;1&quot;,  &quot;b&quot;: &quot;2&quot;&amp;#125;  b.json  1234&amp;">
+<meta name="twitter:description" content="概述最近在使用js中经常遇到需要去异步获取文件并对文件内容进行处理的需求。 详细的需求是：同时去异步获取多个文件，然后将多个文件的结果聚合起来，返回。 但是关于这样的做法有不少的实现方式，在这里主要做一个总结。 做法我先在项目中放置了两个需要获取的json文件。   a.json  1234&amp;#123;  &quot;a&quot;: &quot;1&quot;,  &quot;b&quot;: &quot;2&quot;&amp;#125;  b.json  1234&amp;#123;">
 <meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fzcxkhbgfzj30bk0diglo.jpg">
 
 
@@ -471,7 +471,7 @@
                 
               
 
-              <time title="Created: 2019-01-20 21:27:50 / Modified: 21:37:06" itemprop="dateCreated datePublished" datetime="2019-01-20T21:27:50+08:00">2019-01-20</time>
+              <time title="Created: 2019-01-20 21:27:50 / Modified: 21:37:58" itemprop="dateCreated datePublished" datetime="2019-01-20T21:27:50+08:00">2019-01-20</time>
             
 
             
@@ -527,8 +527,7 @@
       
 
       
-        <p>[TOC]</p>
-<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>最近在使用js中经常遇到需要去异步获取文件并对文件内容进行处理的需求。</p>
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>最近在使用js中经常遇到需要去异步获取文件并对文件内容进行处理的需求。</p>
 <p>详细的需求是：同时去异步获取多个文件，然后将多个文件的结果聚合起来，返回。</p>
 <p>但是关于这样的做法有不少的实现方式，在这里主要做一个总结。</p>
 <h1 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h1><p>我先在项目中放置了两个需要获取的json文件。</p>
