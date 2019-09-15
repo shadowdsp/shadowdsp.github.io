@@ -136,17 +136,19 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://shadowdsp.github.io/about/index.html">
+  <meta name="description" content="概述最近工作中的项目同时使用到了 Python2 和 Python3 ，遇到了字符和字节上面的 tricks，自己之前对这方面不太了解，学习并总结一下。 编码介绍Unicode标准Unicode 标准是用于表示文本以供计算机进行处理的通用字符编码标准。Unicode 标准提供了一种对多语种纯文本进行一致编码的方法，便于国际文本文件的交换。字符 的最佳定义是 Unicode 字符 。Unicode">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python中的文本和字节字符串">
+<meta property="og:url" content="http://shadowdsp.github.io/2019/09/15/Python中的文本和字节字符串/index.html">
 <meta property="og:site_name" content="shadowdsp">
+<meta property="og:description" content="概述最近工作中的项目同时使用到了 Python2 和 Python3 ，遇到了字符和字节上面的 tricks，自己之前对这方面不太了解，学习并总结一下。 编码介绍Unicode标准Unicode 标准是用于表示文本以供计算机进行处理的通用字符编码标准。Unicode 标准提供了一种对多语种纯文本进行一致编码的方法，便于国际文本文件的交换。字符 的最佳定义是 Unicode 字符 。Unicode">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-15T09:40:22.049Z">
+<meta property="og:updated_time" content="2019-09-15T04:37:47.239Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
+<meta name="twitter:title" content="Python中的文本和字节字符串">
+<meta name="twitter:description" content="概述最近工作中的项目同时使用到了 Python2 和 Python3 ，遇到了字符和字节上面的 tricks，自己之前对这方面不太了解，学习并总结一下。 编码介绍Unicode标准Unicode 标准是用于表示文本以供计算机进行处理的通用字符编码标准。Unicode 标准提供了一种对多语种纯文本进行一致编码的方法，便于国际文本文件的交换。字符 的最佳定义是 Unicode 字符 。Unicode">
 
-
-  
 
 
   <link rel="alternate" href="/atom.xml" title="shadowdsp" type="application/atom+xml">
@@ -154,7 +156,7 @@
 
 
 
-  <link rel="canonical" href="http://shadowdsp.github.io/about/">
+  <link rel="canonical" href="http://shadowdsp.github.io/2019/09/15/Python中的文本和字节字符串/">
 
 
 
@@ -164,7 +166,7 @@
   };
 </script>
 
-  <title>about | shadowdsp</title>
+  <title>Python中的文本和字节字符串 | shadowdsp</title>
   
 
 
@@ -270,7 +272,7 @@
         
         
           
-          <li class="menu-item menu-item-about menu-item-active">
+          <li class="menu-item menu-item-about">
 
     
     
@@ -401,78 +403,240 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2019/09/15/Python中的文本和字节字符串/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shadowdsp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shadowdsp">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">about
-
-</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">Python中的文本和字节字符串
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-15 12:27:13 / Modified: 12:37:47" itemprop="dateCreated datePublished" datetime="2019-09-15T12:27:13+08:00">2019-09-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
           
-        
-      </div>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>最近工作中的项目同时使用到了 Python2 和 Python3 ，遇到了字符和字节上面的 tricks，自己之前对这方面不太了解，学习并总结一下。</p>
+<h2 id="编码介绍"><a href="#编码介绍" class="headerlink" title="编码介绍"></a>编码介绍</h2><h3 id="Unicode标准"><a href="#Unicode标准" class="headerlink" title="Unicode标准"></a>Unicode标准</h3><p>Unicode 标准是用于表示文本以供计算机进行处理的通用字符编码标准。Unicode 标准提供了一种对多语种纯文本进行一致编码的方法，便于国际文本文件的交换。<strong>字符</strong> 的最佳定义是 <strong>Unicode 字符</strong> 。Unicode 只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。</p>
+<h3 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h3><p>ASCII 是一套对<strong>英文字符</strong>与二进制位之间的关系做了统一规定的字符编码。ASCII 码规定了 128 个字符的编码，一个字节是 8 位，2^8=256位，因此在 ASCII 编码下，一个字符占一个字节，由于只占后 7 位，因此字节的最前面一位统一规定为 0。</p>
+<h3 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h3><p><strong>UTF-8 字符编码是 Unicode 的实现方式之一。</strong></p>
+<p>UTF-8 是一种变长的编码方式，它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。</p>
+<p>以上更多详细的可以参考 <a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html" target="_blank" rel="noopener">字符编码笔记</a></p>
+<h2 id="Python-中的文本和字节"><a href="#Python-中的文本和字节" class="headerlink" title="Python 中的文本和字节"></a>Python 中的文本和字节</h2><p>在 Python3 中从 str 对象中获取的元素就是 Unicode 字符，可以通过 <strong>编码(encode)</strong> 将 <strong>字符</strong> 转化为 <strong>字节</strong>。 Python2 的 str 对象中获取的是原始字节序列，只有通过 <strong>解码(decode)</strong> 才能将 <strong>字节</strong> 转化为 <strong>字符</strong> 。</p>
+<p>下面使用两个版本的 Python 对字符串进行操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># py3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'123'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(s)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">str</span>'&gt;  # 字符序列</span></span><br><span class="line">&gt;&gt;&gt; b = s.encode('utf-8')</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line"><span class="string">b'123'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(b)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">bytes</span>'&gt; # 字节序列</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># py2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'123'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(s)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt; <span class="comment"># 这里是字节序列</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = s.encode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line"><span class="string">'123'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(b)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt; <span class="comment"># 这里还是字节序列</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.decode() <span class="comment"># decode 出来的才是字符序列</span></span><br><span class="line"><span class="string">u'123'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(b.decode())</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt; <span class="comment"># 字符序列</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = <span class="string">'一二三'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c</span><br><span class="line"><span class="string">'\xe4\xb8\x80\xe4\xba\x8c\xe4\xb8\x89'</span></span><br></pre></td></tr></table></figure>
+<p>从上面的程序可以总结出 Python2 和 Python3 对于字符串处理上的区别：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Python2</th>
+<th>Python3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unicode strings</td>
+<td>unicode</td>
+<td>str</td>
+</tr>
+<tr>
+<td>Bytes strings</td>
+<td>str</td>
+<td>bytes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Python-中的-u-b-r"><a href="#Python-中的-u-b-r" class="headerlink" title="Python 中的 u, b, r"></a>Python 中的 <code>u</code>, <code>b</code>, <code>r</code></h2><p>Python 的字符串有时候前面会加一个 <code>u</code> ，<code>r</code> 或者 <code>b</code> 。</p>
+<p><code>u</code> ：表示字符串是 <strong>Unicode</strong> 编码。结合上面表格的结论，可以认为：在 Python3 中，字符串前面是否加 <code>u</code> 的效果是一致的。在 Python2 中，字符串前面加 <code>u</code> 表示 Unicode 字符串，不加 <code>u</code> 表示 bytes。</p>
+<p><code>b</code> ：表示字符串是 <strong>Bytes</strong>。同结合上面表格的结论，可以认为：在 Python2 中，字符串前面是否加 <code>b</code> 的效果是一致的。在 Python3 中，字符串前面加 <code>b</code> 表示 bytes，不加 <code>b</code> 表示 Unicode 字符串。</p>
+<p><code>r</code> ：表示字符串是 <strong>原始字符串(raw string)</strong> ，里面的字符都是 <strong>raw string literals</strong> ，与 <code>Unicode</code> 和 <code>Bytes</code> 无关，因此 Python2 和 Python3 中含义是一致的。它的作用是使字符串   不会对诸如 <code>\n</code>, <code>\t</code> 等转义字符进行转义：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s2 = <span class="string">'123\n123\t123'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s2</span><br><span class="line"><span class="string">'123\n123\t123'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = <span class="string">r'123\n123\t123'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1</span><br><span class="line"><span class="string">'123\\n123\\t123'</span></span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>字符串处理方面因为现在 Python2 和 Python3 是并存的（不过 2020 年官方就不更新 Python2 了），所以容易混淆，但是总结了一下就清晰不少。</p>
+<p>在这方面要写出兼容的代码，其实只需要使用 <code>__future__</code> 模块：</p>
+<p><code>from __future__ import unicode_literal</code> </p>
+<p>作用是：像 Python3 一样，字符串字面量的类型为文本，而不是字节。</p>
+
       
     </div>
-    
-
-
 
     
+
     
     
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/20/js中异步获取文件集并返回结果集/" rel="next" title="js中异步获取文件集并返回结果集">
+                <i class="fa fa-chevron-left"></i> js中异步获取文件集并返回结果集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTY3My8xODIxOQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -493,8 +657,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -653,6 +826,22 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编码介绍"><span class="nav-text">编码介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Unicode标准"><span class="nav-text">Unicode标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ASCII"><span class="nav-text">ASCII</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UTF-8"><span class="nav-text">UTF-8</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-中的文本和字节"><span class="nav-text">Python 中的文本和字节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-中的-u-b-r"><span class="nav-text">Python 中的 u, b, r</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -817,6 +1006,20 @@
 
 
 
+  
+    <script>
+      window.livereOptions = {
+        refer: '2019/09/15/Python中的文本和字节字符串/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
