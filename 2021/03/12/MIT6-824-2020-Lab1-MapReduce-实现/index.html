@@ -147,7 +147,7 @@
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1goe2y41qoej30f10c9mx5.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1goeibpyt8lj30nd0j7mxn.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1goeqgknphxj312w0powh7.jpg">
-<meta property="og:updated_time" content="2021-03-11T16:09:21.279Z">
+<meta property="og:updated_time" content="2021-03-11T17:18:50.547Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT6.824 2020 Lab1 MapReduce 实现">
 <meta name="twitter:description" content="准备工作实验地址：http://nil.csail.mit.edu/6.824/2020/labs/lab-mr.html 论文地址：mapreduce 实验环境可以在实验地址里面找到具体的搭建方式。 系统总览MapReduce 系统是由一个 master 进程和多个 worker 进程组成。 Master 负责任务状态的记录以及任务的分发。 Worker 负责不断向 master 请求任务，并根">
@@ -470,7 +470,7 @@
                 
               
 
-              <time title="Created: 2021-03-12 00:05:24 / Modified: 00:09:21" itemprop="dateCreated datePublished" datetime="2021-03-12T00:05:24+08:00">2021-03-12</time>
+              <time title="Created: 2021-03-12 00:05:24 / Modified: 01:18:50" itemprop="dateCreated datePublished" datetime="2021-03-12T00:05:24+08:00">2021-03-12</time>
             
 
             
@@ -536,13 +536,13 @@
 <p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1goe2y41qoej30f10c9mx5.jpg" alt="process"></p>
 <p>系统流程图如下：</p>
 <p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1goeibpyt8lj30nd0j7mxn.jpg" alt=""></p>
-<h1 id="程序基本逻辑"><a href="#程序基本逻辑" class="headerlink" title="程序基本逻辑"></a>程序基本逻辑</h1><h3 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h3><ul>
+<h1 id="程序基本逻辑"><a href="#程序基本逻辑" class="headerlink" title="程序基本逻辑"></a>程序基本逻辑</h1><h2 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h2><ul>
 <li>master 一开始只能分发 map 任务。</li>
 <li>当所有 map 任务执行完毕后，master 才开始分发 reduce 任务。</li>
 <li>当所有 map 和 reduce 任务执行完毕，master 退出。</li>
 <li>对于分发出去的任务，需要进行超时控制，即超时的任务需要重新分发处理。在完成分发任务的同时，对该任务运行一条检测任务超时的 go routine <code>checkTaskTimeout</code> 。</li>
 </ul>
-<h3 id="Worker"><a href="#Worker" class="headerlink" title="Worker"></a>Worker</h3><p>Worker 调用  <code>GetTask</code> RPC 接口不断向 master 请求任务。当接收到任务，根据任务的类型分类处理。处理完后，调用 <code>CompleteTask</code> 接口告知 master 任务执行完毕。</p>
+<h2 id="Worker"><a href="#Worker" class="headerlink" title="Worker"></a>Worker</h2><p>Worker 调用  <code>GetTask</code> RPC 接口不断向 master 请求任务。当接收到任务，根据任务的类型分类处理。处理完后，调用 <code>CompleteTask</code> 接口告知 master 任务执行完毕。</p>
 <ul>
 <li>如果是 map 任务，输入是单个文件，通过 <code>mapf</code> 处理后，使用 <code>ihash(key) % nReduce</code> 决定写入到哪个中间文件，输出是 nReduce 个中间文件。</li>
 <li>如果是 reduce 任务，输入是多个 map 输出的中间文件，通过 <code>reducef</code> 处理后，输出是单个文件。</li>
@@ -839,7 +839,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#系统总览"><span class="nav-text">系统总览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序基本逻辑"><span class="nav-text">程序基本逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Master"><span class="nav-text">Master</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Worker"><span class="nav-text">Worker</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#代码结构"><span class="nav-text">代码结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#踩过的坑"><span class="nav-text">踩过的坑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最终结果"><span class="nav-text">最终结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-text">结语</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#系统总览"><span class="nav-text">系统总览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序基本逻辑"><span class="nav-text">程序基本逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Master"><span class="nav-text">Master</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Worker"><span class="nav-text">Worker</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码结构"><span class="nav-text">代码结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#踩过的坑"><span class="nav-text">踩过的坑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最终结果"><span class="nav-text">最终结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>
