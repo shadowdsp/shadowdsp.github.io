@@ -146,7 +146,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gdhj11lhnbj30h1067dgm.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gdhunpe7n1j30h605n0tc.jpg">
-<meta property="og:updated_time" content="2020-04-05T08:15:37.398Z">
+<meta property="og:updated_time" content="2020-04-05T08:18:41.195Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python中的协程">
 <meta name="twitter:description" content="什么是协程协程是指一个过程，这个过程与调用方协作，产出由调用方提供的值。 协程是程序可以控制的，可以在内部中断。 生成器与协程从句法上看，协程与生成器类似，都是定义体中包含 yield 关键字的函数。但是在协程中， yield 通常会出现在表达式的右边，例如 value = yeild ，可以选择是否产出值，如果 yield 后面没有表达式，那么生成器产出 None。 协程通常包含着协程本身与调用">
@@ -469,7 +469,7 @@
                 
               
 
-              <time title="Created: 2020-04-05 16:12:48 / Modified: 16:15:37" itemprop="dateCreated datePublished" datetime="2020-04-05T16:12:48+08:00">2020-04-05</time>
+              <time title="Created: 2020-04-05 16:12:48 / Modified: 16:18:41" itemprop="dateCreated datePublished" datetime="2020-04-05T16:12:48+08:00">2020-04-05</time>
             
 
             
@@ -577,7 +577,7 @@
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Result = namedtuple(<span class="string">'Result'</span>, <span class="string">'count average'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">averager</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    total = <span class="number">0.0</span></span><br><span class="line"><span class="meta">... </span>    count = <span class="number">0</span></span><br><span class="line"><span class="meta">... </span>    average = <span class="keyword">None</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line"><span class="meta">... </span>        value = <span class="keyword">yield</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">if</span> value <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">break</span></span><br><span class="line"><span class="meta">... </span>        total += value</span><br><span class="line"><span class="meta">... </span>        count += <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>        average = total / count</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> Result(count, average)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro = averager()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(coro)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro.send(<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro.send(<span class="number">20</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro.send(<span class="keyword">None</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration: Result(count=<span class="number">2</span>, average=<span class="number">12.5</span>)</span><br></pre></td></tr></table></figure>
 <p>可以看到协程 <code>return</code> 的值保存在了 <code>StopIteration</code> 的 <code>value</code> 属性中。</p>
-<p>于是我们可以修改 Example 6, 通过捕获异常去获取返回值：</p>
+<p>于是我们可以修改 Example 6 得到 Example 7, 通过捕获异常去获取返回值：</p>
 <blockquote>
 <p>Example 7</p>
 </blockquote>
@@ -662,6 +662,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2021/03/12/MIT6-824-2020-Lab1-MapReduce-实现/" rel="prev" title="MIT6.824 2020 Lab1 MapReduce 实现">
+                MIT6.824 2020 Lab1 MapReduce 实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -737,7 +741,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -756,7 +760,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -781,7 +787,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -917,7 +925,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2020</span>
+<div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-heart" aria-hidden="true"></i>
   </span>
@@ -938,7 +946,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共5.3k字</span>
+  <span class="post-count">全站共6.1k字</span>
 </div>
 
 <div class="powered-by">

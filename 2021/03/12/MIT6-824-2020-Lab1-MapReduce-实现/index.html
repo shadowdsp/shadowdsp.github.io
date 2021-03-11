@@ -136,13 +136,22 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="shadowdsp">
-<meta property="og:url" content="http://shadowdsp.github.io/categories/生活/index.html">
+  <meta name="description" content="准备工作实验地址：http://nil.csail.mit.edu/6.824/2020/labs/lab-mr.html 论文地址：mapreduce 实验环境可以在实验地址里面找到具体的搭建方式。 系统总览MapReduce 系统是由一个 master 进程和多个 worker 进程组成。 Master 负责任务状态的记录以及任务的分发。 Worker 负责不断向 master 请求任务，并根">
+<meta name="keywords" content="分布式系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIT6.824 2020 Lab1 MapReduce 实现">
+<meta property="og:url" content="http://shadowdsp.github.io/2021/03/12/MIT6-824-2020-Lab1-MapReduce-实现/index.html">
 <meta property="og:site_name" content="shadowdsp">
+<meta property="og:description" content="准备工作实验地址：http://nil.csail.mit.edu/6.824/2020/labs/lab-mr.html 论文地址：mapreduce 实验环境可以在实验地址里面找到具体的搭建方式。 系统总览MapReduce 系统是由一个 master 进程和多个 worker 进程组成。 Master 负责任务状态的记录以及任务的分发。 Worker 负责不断向 master 请求任务，并根">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1goe2y41qoej30f10c9mx5.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1goeibpyt8lj30nd0j7mxn.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1goeqgknphxj312w0powh7.jpg">
+<meta property="og:updated_time" content="2021-03-11T16:09:21.279Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shadowdsp">
+<meta name="twitter:title" content="MIT6.824 2020 Lab1 MapReduce 实现">
+<meta name="twitter:description" content="准备工作实验地址：http://nil.csail.mit.edu/6.824/2020/labs/lab-mr.html 论文地址：mapreduce 实验环境可以在实验地址里面找到具体的搭建方式。 系统总览MapReduce 系统是由一个 master 进程和多个 worker 进程组成。 Master 负责任务状态的记录以及任务的分发。 Worker 负责不断向 master 请求任务，并根">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1goe2y41qoej30f10c9mx5.jpg">
 
 
 
@@ -151,7 +160,7 @@
 
 
 
-  <link rel="canonical" href="http://shadowdsp.github.io/categories/生活/">
+  <link rel="canonical" href="http://shadowdsp.github.io/2021/03/12/MIT6-824-2020-Lab1-MapReduce-实现/">
 
 
 
@@ -161,7 +170,7 @@
   };
 </script>
 
-  <title>Category: 生活 | shadowdsp</title>
+  <title>MIT6.824 2020 Lab1 MapReduce 实现 | shadowdsp</title>
   
 
 
@@ -209,7 +218,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -301,7 +310,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
 
     
     
@@ -398,83 +407,235 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>生活<small>Category</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2021/03/12/MIT6-824-2020-Lab1-MapReduce-实现/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shadowdsp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shadowdsp">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/12/15/Hello-World/" itemprop="url">
-              
-                <span itemprop="name">Hello World</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">MIT6.824 2020 Lab1 MapReduce 实现
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-15T17:15:24+08:00" content="2018-12-15">
-          12-15
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-03-12 00:05:24 / Modified: 00:09:21" itemprop="dateCreated datePublished" datetime="2021-03-12T00:05:24+08:00">2021-03-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/分布式系统/" itemprop="url" rel="index"><span itemprop="name">分布式系统</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>实验地址：<a href="http://nil.csail.mit.edu/6.824/2020/labs/lab-mr.html" target="_blank" rel="noopener">http://nil.csail.mit.edu/6.824/2020/labs/lab-mr.html</a></p>
+<p>论文地址：<a href="http://static.googleusercontent.com/media/research.google.com/zh-CN//archive/mapreduce-osdi04.pdf" target="_blank" rel="noopener">mapreduce</a></p>
+<p>实验环境可以在实验地址里面找到具体的搭建方式。</p>
+<h1 id="系统总览"><a href="#系统总览" class="headerlink" title="系统总览"></a>系统总览</h1><p>MapReduce 系统是由一个 master 进程和多个 worker 进程组成。</p>
+<p>Master 负责任务状态的记录以及任务的分发。</p>
+<p>Worker 负责不断向 master 请求任务，并根据任务的类型（map/reduce）进行处理，最后将任务结果发送给 master。</p>
+<p>系统框架图如下：</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1goe2y41qoej30f10c9mx5.jpg" alt="process"></p>
+<p>系统流程图如下：</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1goeibpyt8lj30nd0j7mxn.jpg" alt=""></p>
+<h1 id="程序基本逻辑"><a href="#程序基本逻辑" class="headerlink" title="程序基本逻辑"></a>程序基本逻辑</h1><h3 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h3><ul>
+<li>master 一开始只能分发 map 任务。</li>
+<li>当所有 map 任务执行完毕后，master 才开始分发 reduce 任务。</li>
+<li>当所有 map 和 reduce 任务执行完毕，master 退出。</li>
+<li>对于分发出去的任务，需要进行超时控制，即超时的任务需要重新分发处理。在完成分发任务的同时，对该任务运行一条检测任务超时的 go routine <code>checkTaskTimeout</code> 。</li>
+</ul>
+<h3 id="Worker"><a href="#Worker" class="headerlink" title="Worker"></a>Worker</h3><p>Worker 调用  <code>GetTask</code> RPC 接口不断向 master 请求任务。当接收到任务，根据任务的类型分类处理。处理完后，调用 <code>CompleteTask</code> 接口告知 master 任务执行完毕。</p>
+<ul>
+<li>如果是 map 任务，输入是单个文件，通过 <code>mapf</code> 处理后，使用 <code>ihash(key) % nReduce</code> 决定写入到哪个中间文件，输出是 nReduce 个中间文件。</li>
+<li>如果是 reduce 任务，输入是多个 map 输出的中间文件，通过 <code>reducef</code> 处理后，输出是单个文件。</li>
+<li>如果没有可执行的任务，则等待一下，继续轮询。</li>
+</ul>
+<h1 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h1><p>Master 的结构如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// master.go</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Task <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// Pending, Running and Completed</span></span><br><span class="line">	phase    <span class="keyword">string</span></span><br><span class="line">	taskID   <span class="keyword">int</span></span><br><span class="line">	taskType <span class="keyword">string</span></span><br><span class="line">	<span class="comment">// for map, input path has only one element</span></span><br><span class="line">	inputPaths []<span class="keyword">string</span></span><br><span class="line">	<span class="comment">// for reduce, output path has only one element</span></span><br><span class="line">	outputPaths []<span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Master <span class="keyword">struct</span> &#123;</span><br><span class="line">	nReduce                    <span class="keyword">int</span></span><br><span class="line">	mapTasks                   []*Task</span><br><span class="line">	reduceTasks                []*Task</span><br><span class="line">	incompletedMapTaskCount    <span class="keyword">int</span></span><br><span class="line">	incompletedReduceTaskCount <span class="keyword">int</span></span><br><span class="line">	reduceInitialized          <span class="keyword">bool</span></span><br><span class="line">	mux                        sync.Mutex</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Worker 主要是处理逻辑，官方实验文档以及 <code>main/mrsequential.go</code> 里面有例子。</p>
+<p>RPC 的结构如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rpc.go</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> GetTaskRequest <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> GetTaskResponse <span class="keyword">struct</span> &#123;</span><br><span class="line">	TaskType   <span class="keyword">string</span></span><br><span class="line">	TaskID     <span class="keyword">int</span></span><br><span class="line">	TaskInputs []<span class="keyword">string</span></span><br><span class="line">	NReduce    <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> CompleteTaskRequest <span class="keyword">struct</span> &#123;</span><br><span class="line">	TaskType    <span class="keyword">string</span></span><br><span class="line">	TaskID      <span class="keyword">int</span></span><br><span class="line">	TaskOutputs []<span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> CompleteTaskResponse <span class="keyword">struct</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>以上是代码的结构，具体的代码细节在 <a href="https://github.com/shadowdsp/mit6.824" target="_blank" rel="noopener">github</a> 上面。</p>
+<h1 id="踩过的坑"><a href="#踩过的坑" class="headerlink" title="踩过的坑"></a>踩过的坑</h1><p>这里最主要的应该是对于并发的控制，以及 crash 的处理。</p>
+<p>并发控制加锁可以完成。</p>
+<p>crash 的处理是靠 master 的超时机制，以及在 worker 处理的时候，生成一个临时文件，在处理结束后再 rename 成最终的文件。</p>
+<p>为了方便 debug，推荐使用 <code>github.com/sirupsen/logrus</code> 这个库。可以将 debug 等级设为 debug level 来输出自己的 debug 信息。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    log <span class="string">"github.com/sirupsen/logrus"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">log.SetOutput(os.Stdout)</span><br><span class="line"><span class="comment">// log.SetLevel(log.DebugLevel)</span></span><br><span class="line">log.SetLevel(log.WarnLevel)</span><br><span class="line">log.SetFormatter(&amp;log.TextFormatter&#123;</span><br><span class="line">    FullTimestamp: <span class="literal">true</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="最终结果"><a href="#最终结果" class="headerlink" title="最终结果"></a>最终结果</h1><p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1goeqgknphxj312w0powh7.jpg" style="zoom: 50%;"></p>
+<p>这里的 <code>FATAL</code> 是 master 检测到所有任务完成后退出，worker 连接不上 master 而抛出的错误，是预期的。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>这个实验虽然只是一个小玩具，但还是有收获的。特别是看过论文后进行实验，对 mapreduce 一些细节的实现有更深的了解。有兴趣的同学可以自己完成一遍。</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/分布式系统/" rel="tag"># 分布式系统</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/05/Python中的协程/" rel="next" title="Python中的协程">
+                <i class="fa fa-chevron-left"></i> Python中的协程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTY3My8xODIxOQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -495,8 +656,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -660,6 +830,22 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#系统总览"><span class="nav-text">系统总览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序基本逻辑"><span class="nav-text">程序基本逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Master"><span class="nav-text">Master</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Worker"><span class="nav-text">Worker</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#代码结构"><span class="nav-text">代码结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#踩过的坑"><span class="nav-text">踩过的坑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最终结果"><span class="nav-text">最终结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-text">结语</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -807,6 +993,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
 
   
 
@@ -819,6 +1009,20 @@
 
 
 
+  
+    <script>
+      window.livereOptions = {
+        refer: '2021/03/12/MIT6-824-2020-Lab1-MapReduce-实现/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
