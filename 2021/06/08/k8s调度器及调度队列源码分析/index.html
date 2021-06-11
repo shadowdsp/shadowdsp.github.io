@@ -136,20 +136,21 @@
 
 
 
-  <meta name="description" content="简介在 Kubernetes 中，调度是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 kubelet 才能够运行这些 Pod。 K8s scheduler 就是用来调度 pod 的一个组件。 本文主要是通过源码了解调度器的部分工作流程。 源码分析 Based on Kubernetes  v1.19.11.  K8s scheduler 主要的数据结构是：  Schedule">
+  <meta name="description" content="简介在 Kubernetes 中，调度是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 kubelet 才能够运行这些 Pod。K8s scheduler 就是用来调度 pod 的一个组件。 本文主要是通过源码了解调度器的部分工作流程。  源码分析 Based on Kubernetes  v1.19.11.  K8s scheduler 主要的数据结构是：  Schedule">
 <meta name="keywords" content="Kubernetes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="K8s调度器及调度队列源码分析">
 <meta property="og:url" content="http://shadowdsp.github.io/2021/06/08/K8s调度器及调度队列源码分析/index.html">
 <meta property="og:site_name" content="shadowdsp">
-<meta property="og:description" content="简介在 Kubernetes 中，调度是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 kubelet 才能够运行这些 Pod。 K8s scheduler 就是用来调度 pod 的一个组件。 本文主要是通过源码了解调度器的部分工作流程。 源码分析 Based on Kubernetes  v1.19.11.  K8s scheduler 主要的数据结构是：  Schedule">
+<meta property="og:description" content="简介在 Kubernetes 中，调度是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 kubelet 才能够运行这些 Pod。K8s scheduler 就是用来调度 pod 的一个组件。 本文主要是通过源码了解调度器的部分工作流程。  源码分析 Based on Kubernetes  v1.19.11.  K8s scheduler 主要的数据结构是：  Schedule">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gret8c75llj30kg0g3glr.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gr8t0a632ij31di0l8abm.jpg">
-<meta property="og:updated_time" content="2021-06-08T16:39:02.779Z">
+<meta property="og:updated_time" content="2021-06-11T16:51:20.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="K8s调度器及调度队列源码分析">
-<meta name="twitter:description" content="简介在 Kubernetes 中，调度是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 kubelet 才能够运行这些 Pod。 K8s scheduler 就是用来调度 pod 的一个组件。 本文主要是通过源码了解调度器的部分工作流程。 源码分析 Based on Kubernetes  v1.19.11.  K8s scheduler 主要的数据结构是：  Schedule">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gr8t0a632ij31di0l8abm.jpg">
+<meta name="twitter:description" content="简介在 Kubernetes 中，调度是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 kubelet 才能够运行这些 Pod。K8s scheduler 就是用来调度 pod 的一个组件。 本文主要是通过源码了解调度器的部分工作流程。  源码分析 Based on Kubernetes  v1.19.11.  K8s scheduler 主要的数据结构是：  Schedule">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gret8c75llj30kg0g3glr.jpg">
 
 
 
@@ -485,7 +486,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-06-09 00:39:02" itemprop="dateModified" datetime="2021-06-09T00:39:02+08:00">2021-06-09</time>
+                <time title="Modified: 2021-06-12 00:51:20" itemprop="dateModified" datetime="2021-06-12T00:51:20+08:00">2021-06-12</time>
               
             
           </span>
@@ -536,9 +537,9 @@
       
 
       
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>在 Kubernetes 中，调度是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 kubelet 才能够运行这些 Pod。</p>
-<p>K8s scheduler 就是用来调度 pod 的一个组件。</p>
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>在 Kubernetes 中，调度是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 kubelet 才能够运行这些 Pod。K8s scheduler 就是用来调度 pod 的一个组件。</p>
 <p>本文主要是通过源码了解调度器的部分工作流程。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gret8c75llj30kg0g3glr.jpg" alt="调度器流程图"></p>
 <h1 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h1><blockquote>
 <p>Based on Kubernetes  v1.19.11.</p>
 </blockquote>
@@ -612,11 +613,11 @@
 </li>
 <li>进行图中的 Binding Cycle 部分，这部分是起了一个 Goroutine 去完成工作的，不会阻塞调度主流程。<ul>
 <li>最开始会进行 <code>WaitOnPermit</code> 操作，这里会阻塞判断 Pod 是否 Permit，直到 Pod Permit 状态为 allow 或者 reject 再往下继续运行。</li>
-<li>进行 <code>PreBind</code> , <code>Bind</code> , <code>PostBind</code> 操作。这里会调用 k8s apiserver 提供的接口，将待调度的 Pod 与选中的节点进行绑定，但是可能会绑定失败，此时会做 <code>Unreserve</code> 操作，将节点上面 Pod 的资源解除预留，然后重新放置到失败队列中。</li>
+<li>进行 <code>PreBind</code> , <code>Bind</code> , <code>PostBind</code> 操作。这里会调用 k8s apiserver 提供的接口 <code>b.handle.ClientSet().CoreV1().Pods(binding.Namespace).Bind(ctx, binding, metav1.CreateOptions{})</code>，将待调度的 Pod 与选中的节点进行绑定，但是可能会绑定失败，此时会做 <code>Unreserve</code> 操作，将节点上面 Pod 的资源解除预留，然后重新放置到失败队列中。</li>
 </ul>
 </li>
 </ol>
-<p>这里还会涉及 scheduling framework 等知识，在这里不多做赘述。</p>
+<p>当 Pod 与 Node 绑定成功后，Node 上面的 kubelet 会 watch 到对应的 event，然后会在节点上创建 Pod，包括创建容器 storage、network 等。等所有的资源都准备完成，kubelet 会把 Pod 状态更新为Running。</p>
 <h2 id="SchedulingQueue-细节"><a href="#SchedulingQueue-细节" class="headerlink" title="SchedulingQueue 细节"></a>SchedulingQueue 细节</h2><h3 id="获取下一个运行的-Pod"><a href="#获取下一个运行的-Pod" class="headerlink" title="获取下一个运行的 Pod"></a>获取下一个运行的 Pod</h3><p>调度的时候，需要获取一个调度的 pod，即 <code>sched.NextPod()</code> ，其中调用了 SchedulingQueue 的 <code>Pop()</code> 方法。</p>
 <p>当 <code>activeQ</code> 中没有元素，会通过 <code>p.cond.Wait()</code> 阻塞，直到 <code>podBackoffQ</code> 或者 <code>unschedulableQ</code> 将元素加入 <code>activeQ</code> 并通过 <code>cond.Broadcast()</code> 来唤醒。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Pop removes the head of the active queue and returns it. It blocks if the</span></span><br><span class="line"><span class="comment">// activeQ is empty and waits until a new item is added to the queue. It</span></span><br><span class="line"><span class="comment">// increments scheduling cycle when a pod is popped.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *PriorityQueue)</span> <span class="title">Pop</span><span class="params">()</span> <span class="params">(*framework.QueuedPodInfo, error)</span></span> &#123;</span><br><span class="line">    p.lock.Lock()</span><br><span class="line">    <span class="keyword">defer</span> p.lock.Unlock()</span><br><span class="line">    <span class="keyword">for</span> p.activeQ.Len() == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="comment">// When the queue is empty, invocation of Pop() is blocked until new item is enqueued.</span></span><br><span class="line">        <span class="comment">// When Close() is called, the p.closed is set and the condition is broadcast,</span></span><br><span class="line">        <span class="comment">// which causes this loop to continue and return from the Pop().</span></span><br><span class="line">        <span class="keyword">if</span> p.closed &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(queueClosed)</span><br><span class="line">        &#125;</span><br><span class="line">        p.cond.Wait()</span><br><span class="line">    &#125;</span><br><span class="line">    obj, err := p.activeQ.Pop()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    pInfo := obj.(*framework.QueuedPodInfo)</span><br><span class="line">    pInfo.Attempts++</span><br><span class="line">    p.schedulingCycle++</span><br><span class="line">    <span class="keyword">return</span> pInfo, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -982,7 +983,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共9.7k字</span>
+  <span class="post-count">全站共9.8k字</span>
 </div>
 
 <div class="powered-by">
