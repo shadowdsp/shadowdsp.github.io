@@ -139,16 +139,16 @@
   <meta name="description" content="简介在 Kubernetes 中，调度是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 kubelet 才能够运行这些 Pod。K8s scheduler 就是用来调度 pod 的一个组件。 本文主要是通过源码了解调度器的部分工作流程。  源码分析 Based on Kubernetes  v1.19.11.  K8s scheduler 主要的数据结构是：  Schedule">
 <meta name="keywords" content="Kubernetes">
 <meta property="og:type" content="article">
-<meta property="og:title" content="k8s调度器及调度队列源码分析">
-<meta property="og:url" content="http://shadowdsp.github.io/2021/06/08/k8s调度器及调度队列源码分析/index.html">
+<meta property="og:title" content="K8s调度器及调度队列源码分析">
+<meta property="og:url" content="http://shadowdsp.github.io/2021/06/08/K8s调度器及调度队列源码分析/index.html">
 <meta property="og:site_name" content="shadowdsp">
 <meta property="og:description" content="简介在 Kubernetes 中，调度是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 kubelet 才能够运行这些 Pod。K8s scheduler 就是用来调度 pod 的一个组件。 本文主要是通过源码了解调度器的部分工作流程。  源码分析 Based on Kubernetes  v1.19.11.  K8s scheduler 主要的数据结构是：  Schedule">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gret8c75llj30kg0g3glr.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gr8t0a632ij31di0l8abm.jpg">
-<meta property="og:updated_time" content="2021-06-22T16:23:21.223Z">
+<meta property="og:updated_time" content="2021-06-22T16:24:45.879Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="k8s调度器及调度队列源码分析">
+<meta name="twitter:title" content="K8s调度器及调度队列源码分析">
 <meta name="twitter:description" content="简介在 Kubernetes 中，调度是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 kubelet 才能够运行这些 Pod。K8s scheduler 就是用来调度 pod 的一个组件。 本文主要是通过源码了解调度器的部分工作流程。  源码分析 Based on Kubernetes  v1.19.11.  K8s scheduler 主要的数据结构是：  Schedule">
 <meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gret8c75llj30kg0g3glr.jpg">
 
@@ -159,7 +159,7 @@
 
 
 
-  <link rel="canonical" href="http://shadowdsp.github.io/2021/06/08/k8s调度器及调度队列源码分析/">
+  <link rel="canonical" href="http://shadowdsp.github.io/2021/06/08/K8s调度器及调度队列源码分析/">
 
 
 
@@ -169,7 +169,7 @@
   };
 </script>
 
-  <title>k8s调度器及调度队列源码分析 | shadowdsp</title>
+  <title>K8s调度器及调度队列源码分析 | shadowdsp</title>
   
 
 
@@ -426,7 +426,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2021/06/08/k8s调度器及调度队列源码分析/">
+    <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2021/06/08/K8s调度器及调度队列源码分析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shadowdsp">
@@ -443,7 +443,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">k8s调度器及调度队列源码分析
+          <h1 class="post-title" itemprop="name headline">K8s调度器及调度队列源码分析
 
               
             
@@ -486,7 +486,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-06-23 00:23:21" itemprop="dateModified" datetime="2021-06-23T00:23:21+08:00">2021-06-23</time>
+                <time title="Modified: 2021-06-23 00:24:45" itemprop="dateModified" datetime="2021-06-23T00:24:45+08:00">2021-06-23</time>
               
             
           </span>
@@ -1107,7 +1107,7 @@
   
     <script>
       window.livereOptions = {
-        refer: '2021/06/08/k8s调度器及调度队列源码分析/'
+        refer: '2021/06/08/K8s调度器及调度队列源码分析/'
       };
       (function(d, s) {
         var j, e = d.getElementsByTagName(s)[0];
