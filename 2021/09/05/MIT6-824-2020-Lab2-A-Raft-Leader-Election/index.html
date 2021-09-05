@@ -136,13 +136,20 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="shadowdsp">
-<meta property="og:url" content="http://shadowdsp.github.io/index.html">
+  <meta name="description" content="Preparation 实验：http://nil.csail.mit.edu/6.824/2020/labs/lab-raft.html 的 Part 2A. 论文：  英文版：https://raft.github.io/raft.pdf 中文版：https://github.com/maemual/raft-zh_cn/blob/master/raft-zh_cn.md 论文只要求看完 Se">
+<meta name="keywords" content="分布式系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIT6.824 2020 Lab2 A Raft Leader Election">
+<meta property="og:url" content="http://shadowdsp.github.io/2021/09/05/MIT6-824-2020-Lab2-A-Raft-Leader-Election/index.html">
 <meta property="og:site_name" content="shadowdsp">
+<meta property="og:description" content="Preparation 实验：http://nil.csail.mit.edu/6.824/2020/labs/lab-raft.html 的 Part 2A. 论文：  英文版：https://raft.github.io/raft.pdf 中文版：https://github.com/maemual/raft-zh_cn/blob/master/raft-zh_cn.md 论文只要求看完 Se">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gu5lxgle37j60h60i675802.jpg">
+<meta property="og:updated_time" content="2021-09-05T04:11:48.095Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shadowdsp">
+<meta name="twitter:title" content="MIT6.824 2020 Lab2 A Raft Leader Election">
+<meta name="twitter:description" content="Preparation 实验：http://nil.csail.mit.edu/6.824/2020/labs/lab-raft.html 的 Part 2A. 论文：  英文版：https://raft.github.io/raft.pdf 中文版：https://github.com/maemual/raft-zh_cn/blob/master/raft-zh_cn.md 论文只要求看完 Se">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gu5lxgle37j60h60i675802.jpg">
 
 
 
@@ -151,7 +158,7 @@
 
 
 
-  <link rel="canonical" href="http://shadowdsp.github.io/">
+  <link rel="canonical" href="http://shadowdsp.github.io/2021/09/05/MIT6-824-2020-Lab2-A-Raft-Leader-Election/">
 
 
 
@@ -161,7 +168,7 @@
   };
 </script>
 
-  <title>shadowdsp</title>
+  <title>MIT6.824 2020 Lab2 A Raft Leader Election | shadowdsp</title>
   
 
 
@@ -209,8 +216,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -251,7 +257,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -402,9 +408,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -436,10 +442,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/09/05/MIT6-824-2020-Lab2-A-Raft-Leader-Election/" class="post-title-link" itemprop="http://shadowdsp.github.io/index.html">MIT6.824 2020 Lab2 A Raft Leader Election</a>
+          <h1 class="post-title" itemprop="name headline">MIT6.824 2020 Lab2 A Raft Leader Election
+
               
             
           </h1>
@@ -520,25 +524,103 @@
       
 
       
-        
-          
-          Preparation
-实验：http://nil.csail.mit.edu/6.824/2020/labs/lab-raft.html 的 Part 2A.
-论文：
+        <h1 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h1><ol>
+<li>实验：<a href="http://nil.csail.mit.edu/6.824/2020/labs/lab-raft.html" target="_blank" rel="noopener">http://nil.csail.mit.edu/6.824/2020/labs/lab-raft.html</a> 的 Part 2A.</li>
+<li><p>论文：</p>
+<ol>
+<li>英文版：<a href="https://raft.github.io/raft.pdf" target="_blank" rel="noopener">https://raft.github.io/raft.pdf</a></li>
+<li><p>中文版：<a href="https://github.com/maemual/raft-zh_cn/blob/master/raft-zh_cn.md" target="_blank" rel="noopener">https://github.com/maemual/raft-zh_cn/blob/master/raft-zh_cn.md</a></p>
+<p>论文只要求看完 Section 5 即可。</p>
+<p>其中个人认为主要需要看的几个点在于：</p>
+</li>
+</ol>
+<ul>
+<li>Figure 2 &amp; 3.</li>
+<li>Section 5.1</li>
+<li>Section 5.2</li>
+<li>Section 5.4.1</li>
+</ul>
+</li>
+</ol>
+<h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Lab 2A 是实现 Leader Election。它主要关心各个角色的状态切换，以及对于 AppendEntries RPC 和 RequestVote RPC 的请求响应。因为在 Lab 2A 的测试中并不会有日志相关的操作，所以我们也暂时不需要关心太多日志相关的内容。</p>
+<h2 id="Followers"><a href="#Followers" class="headerlink" title="Followers"></a>Followers</h2><ul>
+<li>响应所有来自 leader 和 candidate 的 RPC 请求。</li>
+<li>如果在选举时间超时前，没有收到来自当前 leader 的 AppendEntries RPC（心跳检测），或者没有投票给 candidate，则将自己的状态变成 candidate【注意这条规则的逻辑是 <code>isElectionTimeout() || votedFor == nil</code> ，而不是 <code>isElectionTimeout() &amp;&amp; votedFor == nil</code> 】。</li>
+</ul>
+<h2 id="Candidates"><a href="#Candidates" class="headerlink" title="Candidates"></a>Candidates</h2><ul>
+<li>当状态变为 Candidate 的时候，开始进行选举：<ol>
+<li>递增当前的 term；</li>
+<li>投票给自己；</li>
+<li>重置选举超时计时器；</li>
+<li>发送 RequestVote RPC 给其他的服务器。</li>
+</ol>
+</li>
+<li>选举的终止条件以及对应操作：<ol>
+<li>如果在选举过程中收到大多数的选票，则将自身状态变成 leader。</li>
+<li>如果从新的 leader 接收到了 AppendEntries RPC（心跳检测），则将自身状态变成 follower。</li>
+<li>如果选举超时，则重新进行新一轮的选举。</li>
+</ol>
+</li>
+</ul>
+<h2 id="Leader"><a href="#Leader" class="headerlink" title="Leader"></a>Leader</h2><ul>
+<li>当状态变为 Leader 的时候，立即发送 AppendEntries RPC（心跳检测）给其他所有 server。</li>
+<li>（My Hint：当发送心跳检测不能及时收到大多数 Follower 的响应时，将自己的状态变成 Follower。</li>
+</ul>
+<h2 id="All-Servers"><a href="#All-Servers" class="headerlink" title="All Servers"></a>All Servers</h2><ul>
+<li>在进行<strong>请求或者响应</strong>来自其他 server 的 RPC 时，若发现其他 server 的 term 大于当前 server 的 term，则将当前 server 的 term 更新为其他 server 的 term。</li>
+</ul>
+<h2 id="RequestVote-RPC"><a href="#RequestVote-RPC" class="headerlink" title="RequestVote RPC"></a>RequestVote RPC</h2><ul>
+<li>如果 <code>args.Term &lt; rf.currentTerm</code>，则直接返回 <code>false</code> 。</li>
+<li>如果自己没有投票给其他人或者投给了 candidateID，则返回 <code>true</code> 。</li>
+<li>（存疑，看到 <a href="https://zhuanlan.zhihu.com/p/264448558" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/264448558</a> 以及 <a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="noopener">http://thesecretlivesofdata.com/raft/</a> 中提到在接受到 RequestVote 的时候需要重置选举超时器，但是论文似乎没有提及，我没有实现这个。</li>
+</ul>
+<h2 id="AppendEntries-RPC"><a href="#AppendEntries-RPC" class="headerlink" title="AppendEntries RPC"></a>AppendEntries RPC</h2><ul>
+<li>如果 <code>args.Term &lt; rf.currentTerm</code>，则直接返回 <code>false</code> 。</li>
+<li>重置选举超时器。</li>
+<li>如果当前状态是 candidate 并且发送者的 term 没有过期，状态变为 follower。</li>
+</ul>
+<h1 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h1><p>Lab 2A 的代码是放在 <code>src/raft</code> 里面，我们需要实现 <code>raft.go</code> 中的一部分。</p>
+<p>我的具体实现放在 github 中 <a href="https://github.com/shadowdsp/mit6.824" target="_blank" rel="noopener">https://github.com/shadowdsp/mit6.824</a> .</p>
+<h2 id="Flow-Chart"><a href="#Flow-Chart" class="headerlink" title="Flow Chart"></a>Flow Chart</h2><p><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gu5lxgle37j60h60i675802.jpg" alt="https://tva1.sinaimg.cn/large/008i3skNgy1gu5lxgle37j60h60i675802.jpg"></p>
+<h2 id="Data-Structure"><a href="#Data-Structure" class="headerlink" title="Data Structure"></a>Data Structure</h2><h3 id="Raft"><a href="#Raft" class="headerlink" title="Raft"></a>Raft</h3><p>Raft 的数据结构我们可以看论文中 Figure 2 进行填充，并且补充一些在选举时刻必要的变量。关于日志相关的属性暂时用不到。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> State <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	Leader    = State(<span class="string">"Leader"</span>)</span><br><span class="line">	Candidate = State(<span class="string">"Candidate"</span>)</span><br><span class="line">	Follower  = State(<span class="string">"Follower"</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Raft <span class="keyword">struct</span> &#123;</span><br><span class="line">	mu        sync.Mutex          <span class="comment">// Lock to protect shared access to this peer's state</span></span><br><span class="line">	peers     []*labrpc.ClientEnd <span class="comment">// RPC end points of all peers</span></span><br><span class="line">	persister *Persister          <span class="comment">// Object to hold this peer's persisted state</span></span><br><span class="line">	me        <span class="keyword">int</span>                 <span class="comment">// this peer's index into peers[]</span></span><br><span class="line">	dead      <span class="keyword">int32</span>               <span class="comment">// set by Kill()</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Your data here (2A, 2B, 2C).</span></span><br><span class="line">	<span class="comment">// Look at the paper's Figure 2 for a description of what</span></span><br><span class="line">	<span class="comment">// state a Raft server must maintain.</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 1 follower, 2 candidate, 3 leader</span></span><br><span class="line">	state State</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Persistent state on server</span></span><br><span class="line">	currentTerm <span class="keyword">int</span></span><br><span class="line">	<span class="comment">// votedFor initial state is -1</span></span><br><span class="line">	votedFor <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// follower election timeout timestamp</span></span><br><span class="line">	electionTimeoutAt time.Time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3><p>领导选举主要涉及两个 RPC：RequestVote 以及 AppendEntries，每个分别对应了请求 Args 和响应 Reply。为了方便 debug，也可以在请求或者响应里面加上 <code>ServerID</code> 。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> RequestVoteArgs <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// Your data here (2A, 2B).</span></span><br><span class="line">	Term         <span class="keyword">int</span></span><br><span class="line">	CandidateID  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> RequestVoteReply <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// Your data here (2A).</span></span><br><span class="line">	Term        <span class="keyword">int</span></span><br><span class="line">	VoteGranted <span class="keyword">bool</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> AppendEntriesArgs <span class="keyword">struct</span> &#123;</span><br><span class="line">	Term <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> AppendEntriesReply <span class="keyword">struct</span> &#123;</span><br><span class="line">	Term <span class="keyword">int</span></span><br><span class="line">	<span class="comment">// true if follower contained entry matching prevLogIndex and prevLogTerm</span></span><br><span class="line">	Success <span class="keyword">bool</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h2><p>Raft 程序是由  <code>Make</code> 函数来启动的。在 <code>Make</code> 中，我主要是初始化 raft 对象，然后调用 <code>go rf.run(ctx)</code> 来运行 raft 程序主体。</p>
+<p>初始的时候，raft 的状态为 <code>Follower</code> ，并且投票为 <code>-1</code> 表示还未投票。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">rf := &amp;Raft&#123;</span><br><span class="line">	peers:     peers,</span><br><span class="line">	persister: persister,</span><br><span class="line">	me:        me,</span><br><span class="line">	state:     Follower,</span><br><span class="line">	votedFor:  <span class="number">-1</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Your initialization code here (2A, 2B, 2C).</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// initialize from state persisted before a crash</span></span><br><span class="line">rf.readPersist(persister.ReadRaftState())</span><br><span class="line"></span><br><span class="line">ctx := context.Background()</span><br><span class="line"><span class="keyword">go</span> rf.run(ctx)</span><br></pre></td></tr></table></figure>
+<p><code>rf.run()</code> 主要是对 raft 状态的进行判断，并根据状态执行不同的操作。</p>
+<p>这里加了 <code>time.Sleep(10ms)</code> 是因为我跑了 100 个 test，在后面会发现有锁冲突的情况。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rf *Raft)</span> <span class="title">run</span><span class="params">(ctx context.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		time.Sleep(<span class="number">10</span> * time.Millisecond)</span><br><span class="line">		state := rf.getState()</span><br><span class="line">		<span class="keyword">switch</span> state &#123;</span><br><span class="line">		<span class="keyword">case</span> Follower:</span><br><span class="line">			...  <span class="comment">// check timeout and convert to cdd</span></span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		<span class="keyword">case</span> Candidate:</span><br><span class="line">			...  <span class="comment">// elect leader</span></span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		<span class="keyword">case</span> Leader:</span><br><span class="line">			...  <span class="comment">// send heartbeats</span></span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			<span class="built_in">panic</span>(fmt.Sprintf(<span class="string">"Server %v is in unknown state %v"</span>, rf.me, rf.state))</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来就是按照 Figure2 中提到的，去填充每个 state 以及 RPC 的逻辑。</p>
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>当我们将程序写完，使用 <code>go test -run 2A</code> 去执行测试。</p>
+<p>强烈建议将 <code>TestReElection2A</code> 改成循环运行多次，我这里是运行 100 次，否则极大可能只是概率性地通过。概率性地通过意味着程序并不是正确的。</p>
+<p>虽然我能通过 100 次也是加了一些 hack，例如在某些位置加了 sleep，以及调整了超时时间等，并不说明我的程序是完全正确的。</p>
+<p>如果我的程序有什么问题，求指正，谢谢！！！</p>
+<h2 id="Problems"><a href="#Problems" class="headerlink" title="Problems"></a>Problems</h2><p>在测试的过程中，我陆续解决了一些问题，可能对你会有帮助。</p>
+<blockquote>
+<p>实现 Figure2 - Rules for Servers - All servers 中的第二条规则时，不要忽略了 server 在收到 rpc 响应的时候也要检查 reply.Term 去更新状态。</p>
+</blockquote>
+<p>这一点在看论文的时候不够仔细，导致出错。</p>
+<blockquote>
+<p>Follower 心跳检测的 timeout 和 candidate 选举的 timeout 都是 electionTimeout。</p>
+</blockquote>
+<p>最开始我是用两个 timeout 去表示的，发现实现起来很奇怪，后面改成使用同一个。</p>
+<blockquote>
+<p>并发编程需要注意死锁以及 goroutine 泄漏。</p>
+</blockquote>
+<p>死锁这个还好，只要报错基本能定位到哪里的问题。</p>
+<p>Goroutine 泄漏体现于在 goroutine 中使用 channel，如果最后这个 channel 不会被关闭，那么这个 goroutine 会一直存活。</p>
+<blockquote>
+<p>当 Leader 发出心跳检测后，如果不能及时收到大多数节点的回复，需要变成 Follower。</p>
+</blockquote>
+<p>我在测试 <code>TestReElection2A</code> 的过程中，发现跑了十几次后，经常在 <code>checkNoLeader()</code> 挂了。这是测试三个 server 都出现网络分区的情况。在此时，三个 server 都应该是 Follower state，因此需要加上这个机制。这里我的实现是，在 leader send heartbeats 时，对 rpc 的执行添加超时时间，使用 <code>time.After()</code> 去完成。</p>
+<p>这里还有 MIT 助教写的参考指南 <a href="https://thesquareplanet.com/blog/students-guide-to-raft/" target="_blank" rel="noopener">https://thesquareplanet.com/blog/students-guide-to-raft/</a></p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>Raft leader election 的理论相对容易，实现起来如果有问题，还是如同 Hint 里面说的，多看几遍 <code>Figure 2</code> : ).</p>
+<blockquote>
+<p>If your code has trouble passing the tests, read the paper’s Figure 2 again; the full logic for leader election is spread over multiple parts of the figure.</p>
+</blockquote>
 
-英文版：https://raft.github.io/raft.pdf
-中文版：https://github.com/maemu
-          ...
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2021/09/05/MIT6-824-2020-Lab2-A-Raft-Leader-Election/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
       
     </div>
 
@@ -559,370 +641,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2021/06/08/k8s调度器及调度队列源码分析/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shadowdsp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shadowdsp">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/06/08/k8s调度器及调度队列源码分析/" class="post-title-link" itemprop="http://shadowdsp.github.io/index.html">k8s调度器及调度队列源码分析</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2021-06-08 00:39:53" itemprop="dateCreated datePublished" datetime="2021-06-08T00:39:53+08:00">2021-06-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2021-06-23 00:25:37" itemprop="dateModified" datetime="2021-06-23T00:25:37+08:00">2021-06-23</time>
-              
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a></span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/分布式系统/" rel="tag"># 分布式系统</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          
-          简介在 Kubernetes 中，调度是指将 Pod 放置到合适的 Node 上，然后对应 Node 上的 kubelet 才能够运行这些 Pod。K8s scheduler 就是用来调度 pod 的一个组件。
-本文主要是通过源码了解调度器的部分工作流程。
-
-源码分析
-Based on Kubern
-          ...
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2021/06/08/k8s调度器及调度队列源码分析/#more" rel="contents">
-                Read more &raquo;
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/08/k8s调度器及调度队列源码分析/" rel="next" title="k8s调度器及调度队列源码分析">
+                <i class="fa fa-chevron-left"></i> k8s调度器及调度队列源码分析
               </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2021/03/12/MIT6-824-2020-Lab1-MapReduce-实现/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shadowdsp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shadowdsp">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/03/12/MIT6-824-2020-Lab1-MapReduce-实现/" class="post-title-link" itemprop="http://shadowdsp.github.io/index.html">MIT6.824 2020 Lab1 MapReduce 实现</a>
-              
             
-          </h1>
-        
+          </div>
 
-        <div class="post-meta">
-          <span class="post-time">
+          <span class="post-nav-divider"></span>
 
+          <div class="post-nav-prev post-nav-item">
             
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2021-03-12 00:05:24 / Modified: 01:18:50" itemprop="dateCreated datePublished" datetime="2021-03-12T00:05:24+08:00">2021-03-12</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/分布式系统/" itemprop="url" rel="index"><span itemprop="name">分布式系统</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          准备工作实验地址：http://nil.csail.mit.edu/6.824/2020/labs/lab-mr.html
-论文地址：mapreduce
-实验环境可以在实验地址里面找到具体的搭建方式。
-系统总览MapReduce 系统是由一个 master 进程和多个 worker 进程组成。
-Ma
-          ...
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2021/03/12/MIT6-824-2020-Lab1-MapReduce-实现/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -932,879 +680,20 @@ Ma
   </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2020/04/05/Python中的协程/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shadowdsp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shadowdsp">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/04/05/Python中的协程/" class="post-title-link" itemprop="http://shadowdsp.github.io/index.html">Python中的协程</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-04-05 16:12:48 / Modified: 16:18:41" itemprop="dateCreated datePublished" datetime="2020-04-05T16:12:48+08:00">2020-04-05</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          什么是协程协程是指一个过程，这个过程与调用方协作，产出由调用方提供的值。
-协程是程序可以控制的，可以在内部中断。
-生成器与协程从句法上看，协程与生成器类似，都是定义体中包含 yield 关键字的函数。但是在协程中， yield 通常会出现在表达式的右边，例如 value = yeild ，可以选择是
-          ...
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/04/05/Python中的协程/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2019/09/15/Python中的文本和字节/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shadowdsp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shadowdsp">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/15/Python中的文本和字节/" class="post-title-link" itemprop="http://shadowdsp.github.io/index.html">Python中的文本和字节</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-09-15 12:27:13 / Modified: 20:48:58" itemprop="dateCreated datePublished" datetime="2019-09-15T12:27:13+08:00">2019-09-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          概述最近工作中的项目同时使用到了 Python2 和 Python3 ，遇到了文本和字节的 tricks，自己之前对这方面不太了解，学习并总结一下。
-编码介绍Unicode 标准Unicode 是用于表示文本以供计算机进行处理的通用字符编码标准。Unicode 标准提供了一种对多语种纯文本进行一致编
-          ...
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/09/15/Python中的文本和字节/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2019/01/20/js中异步获取文件集并返回结果集/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shadowdsp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shadowdsp">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/01/20/js中异步获取文件集并返回结果集/" class="post-title-link" itemprop="http://shadowdsp.github.io/index.html">js中异步获取文件集并返回结果集</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-01-20 21:27:50 / Modified: 21:37:58" itemprop="dateCreated datePublished" datetime="2019-01-20T21:27:50+08:00">2019-01-20</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          概述最近在使用js中经常遇到需要去异步获取文件并对文件内容进行处理的需求。
-详细的需求是：同时去异步获取多个文件，然后将多个文件的结果聚合起来，返回。
-但是关于这样的做法有不少的实现方式，在这里主要做一个总结。
-做法我先在项目中放置了两个需要获取的json文件。
-
-
-a.json
-
-1234&#12
-          ...
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/01/20/js中异步获取文件集并返回结果集/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2019/01/10/前端css样式覆盖/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shadowdsp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shadowdsp">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/01/10/前端css样式覆盖/" class="post-title-link" itemprop="http://shadowdsp.github.io/index.html">前端css样式覆盖问题</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-01-10 23:42:58" itemprop="dateCreated datePublished" datetime="2019-01-10T23:42:58+08:00">2019-01-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-01-20 21:31:34" itemprop="dateModified" datetime="2019-01-20T21:31:34+08:00">2019-01-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          综述今天在使用 D3 的时候遇到一个 css 的问题，这里留作记录防止以后踩坑。
-问题在使用 d3 添加鼠标响应事件，想要修改 css，结果不会修改。
-123456789101112131415let rec = svg.append("rect")  .attr("class", "view") 
-          ...
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/01/10/前端css样式覆盖/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2018/12/15/Hello-World/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shadowdsp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shadowdsp">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/12/15/Hello-World/" class="post-title-link" itemprop="http://shadowdsp.github.io/index.html">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-12-15 17:15:24 / Modified: 17:33:48" itemprop="dateCreated datePublished" datetime="2018-12-15T17:15:24+08:00">2018-12-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/生活/" itemprop="url" rel="index"><span itemprop="name">生活</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          本人是广东某双非本科的计算机系蒟蒻一枚，大一到大三接触过ACM，之后开始接触Java备战春招，暑假在杭州实习。虽然秋招以Java后台开发为目标，但是去了广州某无人驾驶公司，主要使用Python（学了一年的Java最终丢了233）。之前一直是用博客园和简书写一些东西，前两周入职了，开始接触新的东西，
-          ...
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/12/15/Hello-World/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTY3My8xODIxOQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -1825,8 +714,17 @@ a.json
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -1994,6 +892,22 @@ a.json
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preparation"><span class="nav-text">Preparation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Followers"><span class="nav-text">Followers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Candidates"><span class="nav-text">Candidates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leader"><span class="nav-text">Leader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#All-Servers"><span class="nav-text">All Servers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequestVote-RPC"><span class="nav-text">RequestVote RPC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AppendEntries-RPC"><span class="nav-text">AppendEntries RPC</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Implementation"><span class="nav-text">Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flow-Chart"><span class="nav-text">Flow Chart</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Structure"><span class="nav-text">Data Structure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Raft"><span class="nav-text">Raft</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPC"><span class="nav-text">RPC</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Process"><span class="nav-text">Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test"><span class="nav-text">Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problems"><span class="nav-text">Problems</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -2141,6 +1055,10 @@ a.json
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
 
   
 
@@ -2153,6 +1071,20 @@ a.json
 
 
 
+  
+    <script>
+      window.livereOptions = {
+        refer: '2021/09/05/MIT6-824-2020-Lab2-A-Raft-Leader-Election/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
