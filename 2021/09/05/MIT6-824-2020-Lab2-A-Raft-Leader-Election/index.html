@@ -145,7 +145,7 @@
 <meta property="og:description" content="Preparation 实验：http://nil.csail.mit.edu/6.824/2020/labs/lab-raft.html 的 Part 2A. 论文：  英文版：https://raft.github.io/raft.pdf 中文版：https://github.com/maemual/raft-zh_cn/blob/master/raft-zh_cn.md 论文只要求看完 Se">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gu5lxgle37j60h60i675802.jpg">
-<meta property="og:updated_time" content="2021-09-05T04:11:48.095Z">
+<meta property="og:updated_time" content="2021-09-05T09:20:05.439Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT6.824 2020 Lab2 A Raft Leader Election">
 <meta name="twitter:description" content="Preparation 实验：http://nil.csail.mit.edu/6.824/2020/labs/lab-raft.html 的 Part 2A. 论文：  英文版：https://raft.github.io/raft.pdf 中文版：https://github.com/maemual/raft-zh_cn/blob/master/raft-zh_cn.md 论文只要求看完 Se">
@@ -468,7 +468,7 @@
                 
               
 
-              <time title="Created: 2021-09-05 12:10:38 / Modified: 12:11:48" itemprop="dateCreated datePublished" datetime="2021-09-05T12:10:38+08:00">2021-09-05</time>
+              <time title="Created: 2021-09-05 12:10:38 / Modified: 17:20:05" itemprop="dateCreated datePublished" datetime="2021-09-05T12:10:38+08:00">2021-09-05</time>
             
 
             
@@ -545,7 +545,7 @@
 <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Lab 2A 是实现 Leader Election。它主要关心各个角色的状态切换，以及对于 AppendEntries RPC 和 RequestVote RPC 的请求响应。因为在 Lab 2A 的测试中并不会有日志相关的操作，所以我们也暂时不需要关心太多日志相关的内容。</p>
 <h2 id="Followers"><a href="#Followers" class="headerlink" title="Followers"></a>Followers</h2><ul>
 <li>响应所有来自 leader 和 candidate 的 RPC 请求。</li>
-<li>如果在选举时间超时前，没有收到来自当前 leader 的 AppendEntries RPC（心跳检测），或者没有投票给 candidate，则将自己的状态变成 candidate【注意这条规则的逻辑是 <code>isElectionTimeout() || votedFor == nil</code> ，而不是 <code>isElectionTimeout() &amp;&amp; votedFor == nil</code> 】。</li>
+<li>如果在选举时间超时前，没有收到来自当前 leader 的 AppendEntries RPC（心跳检测），或者没有投票给 candidate，则将自己的状态变成 candidate（这里之前有些误解了，直到看了 <a href="Guide">https://thesquareplanet.com/blog/students-guide-to-raft/</a> 里面的说法，才知道第二个条件实际对应的是在 RequestVote RPC 中，如果投票给 candidate，则重置选举超时器）。</li>
 </ul>
 <h2 id="Candidates"><a href="#Candidates" class="headerlink" title="Candidates"></a>Candidates</h2><ul>
 <li>当状态变为 Candidate 的时候，开始进行选举：<ol>
@@ -571,8 +571,7 @@
 </ul>
 <h2 id="RequestVote-RPC"><a href="#RequestVote-RPC" class="headerlink" title="RequestVote RPC"></a>RequestVote RPC</h2><ul>
 <li>如果 <code>args.Term &lt; rf.currentTerm</code>，则直接返回 <code>false</code> 。</li>
-<li>如果自己没有投票给其他人或者投给了 candidateID，则返回 <code>true</code> 。</li>
-<li>（存疑，看到 <a href="https://zhuanlan.zhihu.com/p/264448558" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/264448558</a> 以及 <a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="noopener">http://thesecretlivesofdata.com/raft/</a> 中提到在接受到 RequestVote 的时候需要重置选举超时器，但是论文似乎没有提及，我没有实现这个。</li>
+<li>如果自己没有投票给其他人或者投给了 candidateID，则重置选举超时器并返回 <code>true</code> 。</li>
 </ul>
 <h2 id="AppendEntries-RPC"><a href="#AppendEntries-RPC" class="headerlink" title="AppendEntries RPC"></a>AppendEntries RPC</h2><ul>
 <li>如果 <code>args.Term &lt; rf.currentTerm</code>，则直接返回 <code>false</code> 。</li>
