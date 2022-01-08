@@ -419,6 +419,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2022/01/08/MIT6-824-2020-Lab2-B-C-Raft-Log-Replication-and-Persistence/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shadowdsp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shadowdsp">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2022/01/08/MIT6-824-2020-Lab2-B-C-Raft-Log-Replication-and-Persistence/" class="post-title-link" itemprop="http://shadowdsp.github.io/index.html">MIT6.824 2020 Lab2B&C Raft Log Replication and Persistence</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2022-01-08 11:52:54 / Modified: 11:56:45" itemprop="dateCreated datePublished" datetime="2022-01-08T11:52:54+08:00">2022-01-08</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/分布式系统/" itemprop="url" rel="index"><span itemprop="name">分布式系统</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Overview日志复制特性
+Raft 算法保证所有已提交的日志条目都是持久化的并且最终会被所有可用的状态机执行。
+日志匹配特性：
+如果在不同的日志中的两个条目拥有相同的索引和任期号，那么他们存储了相同的指令。
+如果在不同的日志中的两个条目拥有相同的索引和任期号，那么他们之前的所有日志条目也全部相同
+          ...
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2022/01/08/MIT6-824-2020-Lab2-B-C-Raft-Log-Replication-and-Persistence/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://shadowdsp.github.io/2021/09/05/MIT6-824-2020-Lab2-A-Raft-Leader-Election/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1843,7 +2015,7 @@ a.json
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2015,7 +2187,7 @@ a.json
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2021</span>
+<div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2022</span>
   <span class="with-love" id="animate">
     <i class="fa fa-heart" aria-hidden="true"></i>
   </span>
@@ -2036,7 +2208,7 @@ a.json
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共11.5k字</span>
+  <span class="post-count">全站共13k字</span>
 </div>
 
 <div class="powered-by">
